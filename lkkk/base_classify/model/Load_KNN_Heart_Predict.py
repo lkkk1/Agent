@@ -36,8 +36,7 @@ column_trans = ColumnTransformer(transformers=[
 X_trans = column_trans.fit_transform(X)
 y_trans = y.map({'Yes': 1, 'No': 0}).values
 
-knn_load = joblib.load('knn_heart_predict_model')
-# knn_load = joblib.load('best_knn_model')
+knn_load = joblib.load('best_heart_predict_model')
 y_pred = knn_load.predict(X_trans[5:6])
 print(f'预测类别：{y_pred}, 真实类别：{y_trans[5]}')
 

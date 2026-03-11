@@ -9,7 +9,7 @@ import joblib
 from sklearn.model_selection import GridSearchCV
 
 # 1. 读取数据
-dataFrame = pd.read_csv('../resource/heart_2020_cleaned.csv', header=0, sep=',')
+dataFrame = pd.read_csv('/Users/lkkk/code/github/Agent/lkkk/base_classify/resource/heart_2020_cleaned.csv', header=0, sep=',')
 # print(dataFrame.shape)
 X = dataFrame.iloc[:,1:18]
 # print(X.shape)
@@ -100,8 +100,7 @@ for name, model in models.items():
         }
     elif name == 'logistic':
         param_grid = {
-            'penalty': ['l2', 'None'],
-            'solver': ['lbfgs', 'newton-cg', 'sag', 'saga']
+            'solver': ['lbfgs', 'sag', 'saga']
         }
     else:
         param_grid = {}
@@ -110,7 +109,7 @@ for name, model in models.items():
     # 10000条以内 设置 5 或 10
     # > 10000 , 设置3，减少训练迭代
     grid_search = GridSearchCV(model, param_grid, cv=3)
-    grid_search.fit(X_train, y_train)
+    grid_search.fit(X_trans, y_trans)
 
     results[name] = {
         'best_params': grid_search.best_params_,    # 最佳训练参数
@@ -139,12 +138,12 @@ best_model = best_model_result['best_model']
 
 
 # 6. 在测试集上评估最佳模型
-y_pred = best_model.predict(X_test)
-test_accuracy = accuracy_score(y_test, y_pred)
+y_predict = best_model.predict(X_test_trans)
+test_accuracy = accuracy_score(y_test_trans, y_predict)
 print(f"测试集准确率: {test_accuracy:.4f}")
 
 # 7. 模型存储
 # 只保存最佳模型（最常用）
-joblib.dump(best_model, 'best_knn_model')
+joblib.dump(best_model, 'best_heart_predict_model')
 print("✓ 已保存最佳模型")
 
