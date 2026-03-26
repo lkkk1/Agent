@@ -74,7 +74,7 @@ classifier = KNeighborsClassifier(n_neighbors=7)
 classifier.fit(input_matrix, df.loc[:,'label'])
 
 # 4. 模型预测
-str_to_predict = "我要好好爱自己！最自己的一束光！"
+str_to_predict = "我要好好爱自己！做自己的一束光！"
 predict_input = vectorizer.transform([" ".join(jieba.lcut(str_to_predict))])
 res = classifier.predict(predict_input)
 print(res)

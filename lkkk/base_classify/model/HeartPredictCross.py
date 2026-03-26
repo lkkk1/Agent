@@ -45,7 +45,6 @@ continuous_features = ['BMI', 'PhysicalHealth', 'MentalHealth', 'SleepTime']
 def trans_yn_feature(X_yn_feature):
     X_yn = X_yn_feature.copy()
     return X_yn.replace({'Yes': 1, 'No': 0})
-
 # for feature in multi_classify_features:
 #     unique_val = X[feature].unique()
 #     print(f'{feature} 唯一值: {unique_val}')
